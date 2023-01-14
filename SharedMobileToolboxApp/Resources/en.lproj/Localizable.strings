@@ -1,0 +1,111 @@
+
+/* return Text("Account", bundle: .module) */
+"Account" = "Account";
+
+/* return Text("Arranging Pictures", bundle: .module) */
+"Arranging Pictures" = "Arranging Pictures";
+
+/* return Text("Arrow Matching", bundle: .module) */
+"Arrow Matching" = "Arrow Matching";
+
+/* Text("Change", bundle: .module) */
+"Change" = "Change";
+
+/* Text("Continue", bundle: .module) */
+"Continue" = "Continue";
+
+/* Button("Dismiss", action: { todayViewModel.isPresentingAssessment = false }) */
+"Dismiss" = "Dismiss";
+
+/* return Text("Faces & Names A", bundle: .module) */
+"Faces & Names A" = "Faces & Names A";
+
+/* return Text("Faces & Names B", bundle: .module) */
+"Faces & Names B" = "Faces & Names B";
+
+/* Text("Hello, World") */
+"Hello, World" = "Hello, World";
+
+/* return Text("Home", bundle: .module) */
+"Home" = "Home";
+
+/* navigator.forwardButtonText = Text("Login", bundle: .module) */
+"Login" = "Login";
+
+/* return Text("NOTIFICATIONS", bundle: .module) */
+"NOTIFICATIONS" = "NOTIFICATIONS";
+
+/* return Text("Number-Symbol Match", bundle: .module) */
+"Number-Symbol Match" = "Number-Symbol Match";
+
+/* return Text("PROFILE", bundle: .module) */
+"PROFILE" = "PROFILE";
+
+/* label: Text("Participant ID", bundle: .module), */
+"Participant ID" = "Participant ID";
+
+/* profileInfo(Text("Participant ID:", bundle: .module), participantId) */
+"Participant ID:" = "Participant ID:";
+
+/* return Text("Past Activities", bundle: .module) */
+"Past Activities" = "Past Activities";
+
+/* profileInfo(Text("Phone Number:", bundle: .module), phoneNumber) */
+"Phone Number:" = "Phone Number:";
+
+/* Text("Please enter your Study ID below to begin.", bundle: .module) */
+"Please enter your Study ID below to begin." = "Please enter your Study ID below to begin.";
+
+/* return Text("SETTINGS", bundle: .module) */
+"SETTINGS" = "SETTINGS";
+
+/* return Text("Sequences", bundle: .module) */
+"Sequences" = "Sequences";
+
+/* return Text("Shape-Color Sorting", bundle: .module) */
+"Shape-Color Sorting" = "Shape-Color Sorting";
+
+/* Text("Sincerely,", bundle: .module) */
+"Sincerely," = "Sincerely,";
+
+/* error: Text("Sorry, we cannot find this Participant ID. Please try again or contact your Study Coordinator.", bundle: .module)) */
+"Sorry, we cannot find this Participant ID. Please try again or contact your Study Coordinator." = "Sorry, we cannot find this Participant ID. Please try again or contact your Study Coordinator.";
+
+/* error: Text("Sorry, we cannot find this study. Please try again or contact your Study Coordinator.", bundle: .module)) */
+"Sorry, we cannot find this study. Please try again or contact your Study Coordinator." = "Sorry, we cannot find this study. Please try again or contact your Study Coordinator.";
+
+/* return Text("Spelling", bundle: .module) */
+"Spelling" = "Spelling";
+
+/* label: Text("Study ID", bundle: .module), */
+"Study ID" = "Study ID";
+
+/* Text("Study ID:") + */
+"Study ID:" = "Study ID:";
+
+/* return Text("Study Info", bundle: .module) */
+"Study Info" = "Study Info";
+
+/* let format = NSLocalizedString("The %@ team", bundle: .module, comment: "") */
+"The %@ team" = "The %@ team";
+
+/* Text("This assessment is not supported by this app version") */
+"This assessment is not supported by this app version" = "This assessment is not supported by this app version";
+
+/* Text("This is a research study. It does not provide medical advice, diagnosis, or treatment.", bundle: .module) */
+"This is a research study. It does not provide medical advice, diagnosis, or treatment." = "This is a research study. It does not provide medical advice, diagnosis, or treatment.";
+
+/* let html = NSLocalizedString("To <b>withdraw</b> from this study, please contact your Study Contact from the <u><b>Study Info page.</b></u>", bundle: .module, comment: "") */
+"To <b>withdraw</b> from this study, please contact your Study Contact from the <u><b>Study Info page.</b></u>" = "To <b>withdraw</b> from this study, please contact your Study Contact from the <u><b>Study Info page.</b></u>";
+
+/* profileInfo(Text("Version:", bundle: .module), viewModel.version) */
+"Version:" = "Version:";
+
+/* Text("We are excited that you will be participating. We hope that you find this study helpful.", bundle: .module) */
+"We are excited that you will be participating. We hope that you find this study helpful." = "We are excited that you will be participating. We hope that you find this study helpful.";
+
+/* let format = NSLocalizedString("Welcome to %@!", bundle: .module, comment: "") */
+"Welcome to %@!" = "Welcome to %@!";
+
+/* return Text("Word Meaning", bundle: .module) */
+"Word Meaning" = "Word Meaning";

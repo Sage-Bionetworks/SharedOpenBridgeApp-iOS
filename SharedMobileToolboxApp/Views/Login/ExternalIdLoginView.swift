@@ -29,7 +29,7 @@ public struct ExternalIdLoginView: View {
                 Text(studyName)
                     .font(DesignSystem.fontRules.headerFont(at: 3))
                     .fixedSize(horizontal: false, vertical: true)
-                Text("Study ID: \(studyId ?? "")", bundle: .module)
+                studyHeader()
                     .font(DesignSystem.fontRules.bodyFont(at: 1, isEmphasis: false))
                     .opacity(studyId != nil ? 1 : 0)
             }
@@ -44,6 +44,12 @@ public struct ExternalIdLoginView: View {
         .padding(.horizontal, 32)
     }
     
+    @ViewBuilder
+    func studyHeader() -> some View {
+        let currentStudy = " \(studyId ?? "")"
+        Text("Study ID:", bundle: .module) +
+        Text(currentStudy)
+    }
 }
 
 struct ExternalIdLoginView_Preview : View {

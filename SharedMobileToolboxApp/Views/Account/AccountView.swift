@@ -125,11 +125,10 @@ struct AccountView: View {
         .padding(.bottom, 22)
     }
     
-    func withdrawalText() -> Text {
-        Text("To ") +
-            Text("withdraw", bundle: .module).bold() +
-            Text(" from this study, please contact your Study Contact from the ", bundle: .module) +
-            Text("Study Info page.", bundle: .module).bold().underline()
+    @ViewBuilder
+    func withdrawalText() -> some View {
+        let html = NSLocalizedString("To <b>withdraw</b> from this study, please contact your Study Contact from the <u><b>Study Info page.</b></u>", bundle: .module, comment: "")
+        AttributedTextView(html: html)
     }
     
     @ViewBuilder

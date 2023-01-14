@@ -71,7 +71,8 @@ struct StudyWelcomeOnboardingView: View {
             Text(welcome.welcomeScreenHeader ?? "")
         }
         else {
-            Text("Welcome to \(studyName)!", bundle: .module)
+            let format = NSLocalizedString("Welcome to %@!", bundle: .module, comment: "")
+            Text(String(format: format, studyName))
         }
     }
     
@@ -85,7 +86,8 @@ struct StudyWelcomeOnboardingView: View {
         else {
             Text("We are excited that you will be participating. We hope that you find this study helpful.", bundle: .module)
             Text("Sincerely,", bundle: .module)
-            Text("The \(studyName) team", bundle: .module)
+            let format = NSLocalizedString("The %@ team", bundle: .module, comment: "")
+            Text(String(format: format, studyName))
         }
     }
     
