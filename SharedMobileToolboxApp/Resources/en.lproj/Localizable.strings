@@ -96,7 +96,7 @@
 "This is a research study. It does not provide medical advice, diagnosis, or treatment." = "This is a research study. It does not provide medical advice, diagnosis, or treatment.";
 
 /* let html = NSLocalizedString("To <b>withdraw</b> from this study, please contact your Study Contact from the <u><b>Study Info page.</b></u>", bundle: .module, comment: "") */
-"To <b>withdraw</b> from this study, please contact your Study Contact from the <u><b>Study Info page.</b></u>" = "To <b>withdraw</b> from this study, please contact your Study Contact from the <u><b>Study Info page.</b></u>";
+"to_withdraw_account" = "To <b>withdraw</b> from this study, please contact your Study Contact from the <u><b>Study Info page.</b></u>";
 
 /* profileInfo(Text("Version:", bundle: .module), viewModel.version) */
 "Version:" = "Version:";

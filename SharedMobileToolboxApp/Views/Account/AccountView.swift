@@ -3,6 +3,7 @@
 //
 
 import SwiftUI
+import BridgeClientExtension
 import BridgeClientUI
 import SharedMobileUI
 import MobilePassiveData
@@ -127,8 +128,7 @@ struct AccountView: View {
     
     @ViewBuilder
     func withdrawalText() -> some View {
-        let html = NSLocalizedString("To <b>withdraw</b> from this study, please contact your Study Contact from the <u><b>Study Info page.</b></u>", bundle: .module, comment: "")
-        AttributedTextView(html: html)
+        AttributedTextView(html: NSLocalizedString("to_withdraw_account", bundle: .module, comment: ""))
     }
     
     @ViewBuilder
@@ -183,8 +183,20 @@ struct AccountView: View {
     }
 }
 
+struct AccountViewPreview : View {
+    @StateObject var bridgeManager = SingleStudyAppManager(appId: kPreviewStudyId)
+    @StateObject var mainViewModel = MainView.ViewModel()
+    @State var selectedTab: AccountView.Tab = .profile
+    
+    var body: some View {
+        AccountView($selectedTab)
+            .environmentObject(bridgeManager)
+            .environmentObject(mainViewModel)
+    }
+}
+
 struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
-        Text("Hello, World")
+        AccountViewPreview()
     }
 }

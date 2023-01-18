@@ -3,17 +3,25 @@
 
 import SwiftUI
 
+// TODO: syoung 01/18/2022 Revisit this when no longer supporting iOS 14 - might be handled better with AttributedString and iOS 15?
+
 struct AttributedTextView: View {
     let html: String
     
+    @State var htmlText = Text("")
+    
     var body: some View {
-        AttributedLabel {
-            $0.attributedText = NSAttributedString(html: html)
-        }
+        htmlText
+            .onAppear {
+                // Can't build the string while initializing so instead, build on next loop
+                DispatchQueue.main.async {
+                    htmlText = .init(html: html)
+                }
+            }
     }
 }
 
-extension NSAttributedString {
+fileprivate extension NSAttributedString {
     convenience init(html: String)  {
         do {
             let data = Data(html.utf8)
@@ -27,15 +35,44 @@ extension NSAttributedString {
     }
 }
 
-// work-around for HTML - https://stackoverflow.com/questions/59531122/how-to-use-attributed-string-in-swiftui
-struct AttributedLabel: UIViewRepresentable {
+fileprivate extension Text {
+    init(html: String) {
+        self.init("")
 
-    typealias TheUIView = UILabel
-    fileprivate var configuration = { (view: TheUIView) in }
+        let attributedString = NSAttributedString(html: html)
+        attributedString.enumerateAttributes(in: NSRange(location: 0, length: attributedString.length), options: []) { (attrs, range, _) in
 
-    func makeUIView(context: UIViewRepresentableContext<Self>) -> TheUIView { TheUIView() }
-    func updateUIView(_ uiView: TheUIView, context: UIViewRepresentableContext<Self>) {
-        configuration(uiView)
+            var chunk = Text(attributedString.attributedSubstring(from: range).string)
+
+            if let color = attrs[NSAttributedString.Key.foregroundColor] as? UIColor {
+                chunk  = chunk.foregroundColor(Color(color))
+            }
+
+            if let font = attrs[NSAttributedString.Key.font] as? UIFont {
+                if font.isBold {
+                    chunk = chunk.bold()
+                }
+                if font.isItalic {
+                    chunk = chunk.italic()
+                }
+            }
+
+            if let underline = attrs[NSAttributedString.Key.underlineStyle] as? NSNumber, underline != 0 {
+                chunk = chunk.underline()
+            }
+
+            self = self + chunk
+        }
+    }
+}
+
+fileprivate extension UIFont {
+    var isBold: Bool {
+        fontDescriptor.symbolicTraits.contains(.traitBold)
+    }
+    
+    var isItalic: Bool {
+        fontDescriptor.symbolicTraits.contains(.traitItalic)
     }
 }
 
