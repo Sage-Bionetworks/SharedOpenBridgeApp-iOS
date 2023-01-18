@@ -68,7 +68,7 @@ extension WeatherResult : RSDArchivable {
                                        contentType: "application/json",
                                        identifier: self.identifier,
                                        stepPath: stepPath)
-        let data = try self.rsd_jsonEncodedData()
+        let data = try self.jsonEncodedData()
         return (manifest, data)
     }
 }
