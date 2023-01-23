@@ -33,13 +33,13 @@
 "Login" = "Login";
 
 /* return Text("NOTIFICATIONS", bundle: .module) */
-"NOTIFICATIONS" = "NOTIFICATIONS";
+"NOTIFICATIONS" = "Notifications";
 
 /* return Text("Number-Symbol Match", bundle: .module) */
 "Number-Symbol Match" = "Number-Symbol Match";
 
 /* return Text("PROFILE", bundle: .module) */
-"PROFILE" = "PROFILE";
+"PROFILE" = "Profile";
 
 /* label: Text("Participant ID", bundle: .module), */
 "Participant ID" = "Participant ID";
@@ -57,7 +57,7 @@
 "Please enter your Study ID below to begin." = "Please enter your Study ID below to begin.";
 
 /* return Text("SETTINGS", bundle: .module) */
-"SETTINGS" = "SETTINGS";
+"SETTINGS" = "Settings";
 
 /* return Text("Sequences", bundle: .module) */
 "Sequences" = "Sequences";
