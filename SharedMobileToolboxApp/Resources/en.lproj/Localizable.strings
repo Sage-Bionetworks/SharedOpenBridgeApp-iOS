@@ -2,12 +2,6 @@
 /* return Text("Account", bundle: .module) */
 "Account" = "Account";
 
-/* return Text("Arranging Pictures", bundle: .module) */
-"Arranging Pictures" = "Arranging Pictures";
-
-/* return Text("Arrow Matching", bundle: .module) */
-"Arrow Matching" = "Arrow Matching";
-
 /* Text("Change", bundle: .module) */
 "Change" = "Change";
 
@@ -16,15 +10,6 @@
 
 /* Button("Dismiss", action: { todayViewModel.isPresentingAssessment = false }) */
 "Dismiss" = "Dismiss";
-
-/* return Text("Faces & Names A", bundle: .module) */
-"Faces & Names A" = "Faces & Names A";
-
-/* return Text("Faces & Names B", bundle: .module) */
-"Faces & Names B" = "Faces & Names B";
-
-/* Text("Hello, World") */
-"Hello, World" = "Hello, World";
 
 /* return Text("Home", bundle: .module) */
 "Home" = "Home";
@@ -59,12 +44,6 @@
 /* return Text("SETTINGS", bundle: .module) */
 "SETTINGS" = "Settings";
 
-/* return Text("Sequences", bundle: .module) */
-"Sequences" = "Sequences";
-
-/* return Text("Shape-Color Sorting", bundle: .module) */
-"Shape-Color Sorting" = "Shape-Color Sorting";
-
 /* Text("Sincerely,", bundle: .module) */
 "Sincerely," = "Sincerely,";
 
@@ -73,9 +52,6 @@
 
 /* error: Text("Sorry, we cannot find this study. Please try again or contact your Study Coordinator.", bundle: .module)) */
 "Sorry, we cannot find this study. Please try again or contact your Study Coordinator." = "Sorry, we cannot find this study. Please try again or contact your Study Coordinator.";
-
-/* return Text("Spelling", bundle: .module) */
-"Spelling" = "Spelling";
 
 /* label: Text("Study ID", bundle: .module), */
 "Study ID" = "Study ID";
@@ -96,7 +72,7 @@
 "This is a research study. It does not provide medical advice, diagnosis, or treatment." = "This is a research study. It does not provide medical advice, diagnosis, or treatment.";
 
 /* let html = NSLocalizedString("To <b>withdraw</b> from this study, please contact your Study Contact from the <u><b>Study Info page.</b></u>", bundle: .module, comment: "") */
-"to_withdraw_account" = "To <b>withdraw</b> from this study, please contact your Study Contact from the <u><b>Study Info page.</b></u>";
+"TO_WITHDRAW_ACCOUNT" = "To <b>withdraw</b> from this study, please contact your Study Contact from the <u><b>Study Info page.</b></u>";
 
 /* profileInfo(Text("Version:", bundle: .module), viewModel.version) */
 "Version:" = "Version:";
@@ -106,6 +82,3 @@
 
 /* let format = NSLocalizedString("Welcome to %@!", bundle: .module, comment: "") */
 "Welcome to %@!" = "Welcome to %@!";
-
-/* return Text("Word Meaning", bundle: .module) */
-"Word Meaning" = "Word Meaning";
