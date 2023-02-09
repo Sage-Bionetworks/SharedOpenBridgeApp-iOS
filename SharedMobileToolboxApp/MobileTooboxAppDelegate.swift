@@ -26,8 +26,8 @@ open class MobileToolboxAppDelegate: RSDSwiftUIAppDelegate {
         self.bridgeManager = SingleStudyAppManager(appId: appId, pemPath: pemPath)
         super.init()
     }
-        
-    public override func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]?) -> Bool {
+    
+    open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
         bridgeManager.appWillFinishLaunching(launchOptions)
         
@@ -40,10 +40,10 @@ open class MobileToolboxAppDelegate: RSDSwiftUIAppDelegate {
         PermissionAuthorizationHandler.registerAdaptorIfNeeded(LocationAuthorization())
         PermissionAuthorizationHandler.registerAdaptorIfNeeded(NotificationsAuthorization())
 
-        return super.application(application, willFinishLaunchingWithOptions: launchOptions)
+        return true
     }
     
-    public func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String,
+    open func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String,
             completionHandler: @escaping () -> Void) {
         bridgeManager.handleEvents(for: identifier, completionHandler: completionHandler)
     }
