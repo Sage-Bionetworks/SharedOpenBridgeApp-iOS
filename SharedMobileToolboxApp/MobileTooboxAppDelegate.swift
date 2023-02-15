@@ -29,7 +29,8 @@ open class MobileToolboxAppDelegate: RSDSwiftUIAppDelegate {
     
     open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
-        bridgeManager.appWillFinishLaunching(launchOptions)
+        // Setup bridge
+        bridgeManager.finishLaunchingApp(launchOptions)
         
         // Set up notifications handling
         UIApplication.shared.applicationIconBadgeNumber = 0
