@@ -23,7 +23,7 @@ public struct ContentView: View {
         case .launching:
             LaunchView()
         case .login:
-            LoginView()
+            SingleStudyLoginView()
         case .onboarding:
             OnboardingView()
                 .onAppear {
