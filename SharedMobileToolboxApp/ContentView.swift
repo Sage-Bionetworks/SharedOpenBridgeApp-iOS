@@ -40,6 +40,8 @@ public struct ContentView: View {
                 .onChange(of: todayViewModel.isPresentingAssessment) { newValue in
                     isPresentingAssessment = newValue
                 }
+        case .error:
+            AppErrorView()
         }
     }
     
