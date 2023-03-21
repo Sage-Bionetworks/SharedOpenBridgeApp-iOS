@@ -128,7 +128,7 @@ struct AccountView: View {
     
     @ViewBuilder
     func withdrawalText() -> some View {
-        AttributedTextView(html: NSLocalizedString("to_withdraw_account", bundle: .module, comment: ""))
+        AttributedTextView(html: NSLocalizedString("TO_WITHDRAW_ACCOUNT", bundle: .module, comment: ""))
     }
     
     @ViewBuilder
