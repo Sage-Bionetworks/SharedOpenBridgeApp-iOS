@@ -23,7 +23,15 @@ public struct ContentView: View {
         case .launching:
             LaunchView()
         case .login:
-            SingleStudyLoginView()
+            if let externalId = bridgeManager.userSessionInfo.externalId,
+               externalId.contains(":"),
+               bridgeManager.userSessionInfo.loginState == .reauthFailed {
+                let parts = externalId.components(separatedBy: ":")
+                ReauthRecoveryView(studyId: parts.first!, participantId: parts.last!)
+            }
+            else {
+                SingleStudyLoginView()
+            }
         case .onboarding:
             OnboardingView()
                 .onAppear {
