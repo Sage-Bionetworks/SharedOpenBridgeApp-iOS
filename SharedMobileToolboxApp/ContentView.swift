@@ -46,6 +46,15 @@ public struct ContentView: View {
                     assessmentView()
                 }
                 .onChange(of: todayViewModel.isPresentingAssessment) { newValue in
+                    if newValue, let info = todayViewModel.selectedAssessment {
+                        Logger.log(severity: .info,
+                                   message: "Presenting Assessment \(info.assessmentIdentifier)",
+                                   metadata: [
+                                    "instanceGuid": info.instanceGuid,
+                                    "assessmentIdentifier": info.assessmentIdentifier,
+                                    "sessionInstanceGuid": info.session.instanceGuid,
+                                   ])
+                    }
                     isPresentingAssessment = newValue
                 }
         case .error:
