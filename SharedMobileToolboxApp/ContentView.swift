@@ -66,17 +66,28 @@ public struct ContentView: View {
     func assessmentView() -> some View {
         switch todayViewModel.selectedAssessmentViewType {
         case .mtb:
-            PreferenceUIHostingControllerView {
-                MTBAssessmentView(todayViewModel)
-                    .edgesIgnoringSafeArea(.all)
+            if #available(iOS 16.0, *) {
+                mtbView()
+                    .statusBar(hidden: todayViewModel.isPresentingAssessment)
+                    .defersSystemGestures(on: .vertical)
+            } else {
+                PreferenceUIHostingControllerView {
+                    mtbView()
+                }
+                .edgesIgnoringSafeArea(.all)
+                .statusBar(hidden: todayViewModel.isPresentingAssessment)
             }
-            .edgesIgnoringSafeArea(.all)
-            .statusBar(hidden: todayViewModel.isPresentingAssessment)
         case .survey(let info):
             SurveyView<AssessmentView>(info, handler: todayViewModel)
         default:
             emptyAssessment()
         }
+    }
+    
+    @ViewBuilder
+    func mtbView() -> some View {
+        MTBAssessmentView(todayViewModel)
+            .edgesIgnoringSafeArea(.all)
     }
     
     @ViewBuilder
