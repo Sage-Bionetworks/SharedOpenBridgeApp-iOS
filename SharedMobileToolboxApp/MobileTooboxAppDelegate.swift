@@ -12,7 +12,7 @@ import MobilePassiveData
 import LocationAuthorization
 import MotionSensor
 import AudioRecorder
-
+import MobileToolboxKit
 
 open class MobileToolboxAppDelegate: RSDSwiftUIAppDelegate, ReauthPasswordHandler {
     open class var appId: String { "" }
@@ -41,6 +41,10 @@ open class MobileToolboxAppDelegate: RSDSwiftUIAppDelegate, ReauthPasswordHandle
         PermissionAuthorizationHandler.registerAdaptorIfNeeded(AudioRecorderAuthorization.shared)
         PermissionAuthorizationHandler.registerAdaptorIfNeeded(LocationAuthorization())
         PermissionAuthorizationHandler.registerAdaptorIfNeeded(NotificationsAuthorization())
+        
+        NotificationCenter.default.addObserver(forName: UploadAppManager.BridgeClientWillSignOut, object: nil, queue: .main) { _ in
+            taskVendor.clearCachedData()
+        }
 
         return true
     }
