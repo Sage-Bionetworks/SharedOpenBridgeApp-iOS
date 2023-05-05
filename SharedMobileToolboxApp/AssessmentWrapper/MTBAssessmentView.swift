@@ -10,6 +10,7 @@ import BridgeClientUI
 import ResearchUI
 import Research
 import JsonModel
+import ResultModel
 import MSSMobileKit
 import AssessmentModelUI
 
@@ -246,15 +247,33 @@ class MobileToolboxArchiveManager : SageResearchArchiveManager {
 }
 
 class MobileToolboxArchive : SageResearchResultArchive {
-    override func insertDataIntoArchive(_ data: Data, manifest: RSDFileManifest) throws {
-        var m = manifest
-        if manifest.filename == "taskData" {
-            m = .init(filename: "taskData.json",
-                      timestamp: manifest.timestamp,
-                      contentType: "application/json",
-                      identifier: manifest.identifier,
-                      stepPath: manifest.stepPath)
-        }
-        try super.insertDataIntoArchive(data, manifest: m)
+    
+    override func shouldInsertData(for filename: RSDReservedFilename) -> Bool {
+        false   // Do not include "answers.json" or "taskResult.json"
+    }
+    
+    override func archivableData(for result: ResultData, sectionIdentifier: String?, stepPath: String?) -> RSDArchivable? {
+        (result as? FileArchivable).map { RSDArchivableWrapper(result: $0) }
     }
 }
+
+struct RSDArchivableWrapper : RSDArchivable {
+    let result: FileArchivable
+    
+    func buildArchiveData(at stepPath: String?) throws -> (manifest: Research.RSDFileManifest, data: Data)? {
+        guard let ret = try result.buildArchivableFileData(at: stepPath)
+        else {
+            return nil
+        }
+        let filename = (ret.fileInfo.filename == "taskData") ? "taskData.json" : ret.fileInfo.filename
+        let m = RSDFileManifest(filename: filename,
+                                timestamp: ret.fileInfo.timestamp,
+                                contentType: ret.fileInfo.contentType,
+                                identifier: ret.fileInfo.identifier,
+                                stepPath: ret.fileInfo.stepPath,
+                                jsonSchema: ret.fileInfo.jsonSchema,
+                                metadata: ret.fileInfo.metadata)
+        return (m, ret.data)
+    }
+}
+
