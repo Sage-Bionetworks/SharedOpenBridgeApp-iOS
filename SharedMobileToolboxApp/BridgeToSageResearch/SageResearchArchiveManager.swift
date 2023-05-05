@@ -5,6 +5,7 @@
 import Foundation
 import Research
 import JsonModel
+import ResultModel
 import BridgeClient
 import BridgeClient
 import BridgeClientUI

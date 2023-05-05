@@ -7,6 +7,7 @@ import AVFoundation
 import BridgeClient
 import BridgeClientUI
 import JsonModel
+import ResultModel
 import MobilePassiveData
 import MobileToolboxKit
 import MSSMobileKit

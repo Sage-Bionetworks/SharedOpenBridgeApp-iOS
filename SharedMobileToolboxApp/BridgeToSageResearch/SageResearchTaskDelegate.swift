@@ -70,12 +70,11 @@ open class SageResearchTaskDelegate : NSObject, RSDTaskViewControllerDelegate {
         }
         
         let taskResult = taskController.taskViewModel.taskResult
-        let clientData = (taskController.task as? RSDTrackingTask)?.taskData(for: taskResult)?.json
         let declined = taskController.taskViewModel.didAbandon
         let endedOn = (reason == .completed) && !declined ? taskResult.endDate : nil
         
         Task {
-            await dismissAssessment(startedOn: taskResult.startDate, endedOn: endedOn, declined: declined, clientData: clientData)
+            await dismissAssessment(startedOn: taskResult.startDate, endedOn: endedOn, declined: declined, clientData: nil)
         }
     }
     
