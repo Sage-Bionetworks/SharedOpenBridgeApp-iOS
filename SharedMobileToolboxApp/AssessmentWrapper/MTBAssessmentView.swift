@@ -11,8 +11,11 @@ import ResearchUI
 import Research
 import JsonModel
 import ResultModel
+import MobileToolboxKit
 import MSSMobileKit
 import AssessmentModelUI
+
+let taskVendor = MSSTaskVender(taskConfigLoader: MTBStaticTaskConfigLoader.default)
 
 public enum MTBIdentifier : String, CaseIterable {
     case numberMatch="number-match",
@@ -167,123 +170,158 @@ fileprivate func assessmentToTaskIdentifierMap(_ identifier: String) -> String {
     MTBIdentifier(rawValue: identifier)?.taskIdentifier() ?? identifier
 }
 
-final class MTBTaskDelegate : SageResearchTaskDelegate {
-    var taskVC: RSDTaskViewController!
-    
-    init(_ assessmentManager: TodayTimelineViewModel) {
-        super.init(assessmentManager)
-        self.taskVC = {
-            do {
-                let taskVC = try buildTaskViewController()
-                taskVC.delegate = self
-                return taskVC
-            }
-            catch let err {
-                assertionFailure("Failed to create the task view controller: \(err)")
-                return RSDTaskViewController(task: AssessmentTaskObject(identifier: "empty", steps: []))
-            }
-        }()
-    }
-        
-    override var sageResearchArchiveManager: SageResearchArchiveManager {
-        _sageResearchArchiveManager
-    }
-    lazy private var _sageResearchArchiveManager: SageResearchArchiveManager = {
-        let manager = MobileToolboxArchiveManager()
-        manager.load(bridgeManager: assessmentManager.bridgeManager)
-        return manager
-    }()
-    
-    func buildTaskViewController() throws -> RSDTaskViewController {
-        guard let schedule = scheduledAssessment
-        else {
-            throw RSDValidationError.unexpectedNullObject("taskIdentifier")
-        }
-        let taskIdentifier = assessmentToTaskIdentifierMap(schedule.assessmentInfo.identifier)
-        
-        if let config = assessmentManager.bridgeManager?.appConfig.decodeRecorderConfig() {
-            let wrapperTask = MTBAssessmentWrapper(recorderConfig: config, activityIdentifier: taskIdentifier, study: assessmentManager.bridgeManager?.study)
-            let taskViewModel = RSDTaskViewModel(task: wrapperTask)
-            taskViewModel.scheduleIdentifier = scheduleIdentifier
-            // syoung 09/14/2021 Need to set the task orientation *before* presenting the view
-            // (and calling `makeUIViewController()`) or else it will crash b/c its trying to
-            // rotate to an unsupported orientation.
-            let lock = wrapperTask.taskOrientation.union(AppOrientationLockUtility.defaultOrientationLock)
-            AppOrientationLockUtility.setOrientationLock(lock, rotateIfNeeded: false)
-            return AssessmentWrapperTaskViewController(taskViewModel: taskViewModel)
-        }
-        else {
-            return try taskVendor.taskViewController(for: taskIdentifier, scheduleIdentifier: scheduleIdentifier)
-        }
-    }
-}
-
 struct MTBAssessmentView : UIViewControllerRepresentable {
     typealias UIViewControllerType = RSDTaskViewController
     
-    let assessmentManager: TodayTimelineViewModel
+    let taskVC: RSDTaskViewController
+    let handler: ScheduledAssessmentHandler
+    let schedule: AssessmentScheduleInfo
     
-    init(_ assessmentManager: TodayTimelineViewModel) {
-        self.assessmentManager = assessmentManager
-        
+    init(_ assessmentInfo: AssessmentScheduleInfo, handler: ScheduledAssessmentHandler) {
+        self.handler = handler
+        self.schedule = assessmentInfo
+        do {
+            self.taskVC = try Self.buildTaskViewController(assessmentInfo)
+        }
+        catch let err {
+            assertionFailure("Failed to create the task view controller: \(err)")
+            self.taskVC = RSDTaskViewController(task: AssessmentTaskObject(identifier: "empty", steps: []))
+        }
     }
 
     func makeUIViewController(context: Context) -> RSDTaskViewController {
-        context.coordinator.taskVC
+        taskVC.delegate = context.coordinator
+        return taskVC
     }
     
     func updateUIViewController(_ uiViewController: RSDTaskViewController, context: Context) {
     }
     
     func makeCoordinator() -> MTBTaskDelegate {
-        .init(assessmentManager)
+        MTBTaskDelegate(schedule, handler: handler)
+    }
+    
+    static func buildTaskViewController(_ schedule: AssessmentScheduleInfo) throws -> RSDTaskViewController {
+        let scheduleIdentifier = "\(schedule.session.instanceGuid)|\(schedule.instanceGuid)"
+        let taskIdentifier = assessmentToTaskIdentifierMap(schedule.assessmentInfo.identifier)
+        let taskVC = try taskVendor.taskViewController(for: taskIdentifier, scheduleIdentifier: scheduleIdentifier)
+        
+        // syoung 09/14/2021 Need to set the task orientation *before* presenting the view
+        // (and calling `makeUIViewController()`) or else it will crash b/c its trying to
+        // rotate to an unsupported orientation.
+        let taskOrientation: UIInterfaceOrientationMask = (taskVC.task as? MSSAssessmentTaskObject)?.taskOrientation ?? .portrait
+        let lock = taskOrientation.union(AppOrientationLockUtility.defaultOrientationLock)
+        AppOrientationLockUtility.setOrientationLock(lock, rotateIfNeeded: false)
+        
+        return taskVC
+    }
+    
+    final class MTBTaskDelegate : NSObject, RSDTaskViewControllerDelegate {
+        
+        let handler: ScheduledAssessmentHandler
+        let schedule: AssessmentScheduleInfo
+        
+        init(_ schedule: AssessmentScheduleInfo, handler: ScheduledAssessmentHandler) {
+            self.handler = handler
+            self.schedule = schedule
+        }
+        
+        /// A flag used to track whether or not "ready to save" was called by the assessment.
+        public private(set) var didCallReadyToSave: Bool = false
+        
+        func taskController(_ taskController: RSDTaskController, readyToSave taskViewModel: RSDTaskViewModel) {
+            guard let builder = self.createBuilder(taskViewModel) else { return }
+            
+            self.didCallReadyToSave = true
+            
+            Task {
+                await handler.updateAssessmentStatus(schedule, status: .readyToSave(builder))
+            }
+        }
+
+        func taskController(_ taskController: RSDTaskController, didFinishWith reason: RSDTaskFinishReason, error: Error?) {
+            if reason != .completed && !self.didCallReadyToSave {
+                // If the task finished with an error or discarded results, then delete the output directory.
+                taskController.taskViewModel.deleteOutputDirectory(error: error)
+                if let err = error {
+                    debugPrint("WARNING! Task failed: \(err)")
+                }
+            }
+            
+            Task {
+                await dismissAssessment(taskController.taskViewModel, reason: reason, error: error)
+            }
+        }
+        
+        @MainActor
+        func dismissAssessment(_ taskViewModel: RSDTaskViewModel, reason: RSDTaskFinishReason, error: Error?) {
+            if taskViewModel.didAbandon {
+                handler.updateAssessmentStatus(schedule, status: .declined(taskViewModel.taskResult.startDate))
+            }
+            else if (reason == .failed), let err = error {
+                handler.updateAssessmentStatus(schedule, status: .error(err))
+            }
+            else if (reason == .completed) {
+                if !self.didCallReadyToSave, let builder = self.createBuilder(taskViewModel) {
+                    handler.updateAssessmentStatus(schedule, status: .saveAndFinish(builder))
+                }
+                else {
+                    handler.updateAssessmentStatus(schedule, status: .finished)
+                }
+            }
+            else if (reason == .saved), let result = taskViewModel.taskResult as? AssessmentResult {
+                handler.updateAssessmentStatus(schedule, status: .saveForLater(result))
+            }
+            else {
+                handler.updateAssessmentStatus(schedule, status: .restartLater)
+            }
+        }
+        
+        func createBuilder(_ taskViewModel: RSDTaskViewModel) -> ResultArchiveBuilder? {
+            guard let result = taskViewModel.taskResult as? AssessmentResult,
+                  let builder = MTBArchiveBuilder(result, schedule: schedule, outputDirectory: taskViewModel.outputDirectory)
+            else {
+                Logger.log(tag: .upload, error: AppUnexpectedNullError(message: "Could not build archive for \(taskViewModel.taskResult)"))
+                return nil
+            }
+            return builder
+        }
     }
 }
 
-class MobileToolboxArchiveManager : SageResearchArchiveManager {
-    override func instantiateArchive(_ archiveIdentifier: String, for schedule: AssessmentScheduleInfo?, with schema: RSDSchemaInfo?) -> SageResearchResultArchive? {
-        MobileToolboxArchive(identifier: archiveIdentifier,
-                             schemaIdentifier: schema?.schemaIdentifier,
-                             schemaRevision: schema?.schemaVersion,
-                             dataGroups: dataGroups(),
-                             schedule: schedule,
-                             isPlaceholder: false)
-    }
-}
+class MTBArchiveBuilder : AssessmentArchiveBuilder {
 
-class MobileToolboxArchive : SageResearchResultArchive {
-    
-    override func shouldInsertData(for filename: RSDReservedFilename) -> Bool {
-        false   // Do not include "answers.json" or "taskResult.json"
-    }
-    
-    override func archivableData(for result: ResultData, sectionIdentifier: String?, stepPath: String?) -> RSDArchivable? {
-        (result as? FileArchivable).map { RSDArchivableWrapper(result: $0) }
-    }
-}
-
-struct RSDArchivableWrapper : RSDArchivable {
-    let result: FileArchivable
-    
-    func buildArchiveData(at stepPath: String?) throws -> (manifest: Research.RSDFileManifest, data: Data)? {
-        guard let ret = try result.buildArchivableFileData(at: stepPath)
+    override func manifestFileInfo(for result: FileArchivable, fileInfo: FileInfo) -> FileInfo? {
+        if fileInfo.filename == "taskData" {
+            return FileInfo(filename: "taskData.json",
+                            timestamp: fileInfo.timestamp,
+                            contentType: fileInfo.contentType,
+                            identifier: fileInfo.identifier,
+                            stepPath: fileInfo.stepPath,
+                            jsonSchema: fileInfo.jsonSchema,
+                            metadata: fileInfo.metadata)
+        }
         else {
-            return nil
+            return fileInfo
         }
-        let filename = (ret.fileInfo.filename == "taskData") ? "taskData.json" : ret.fileInfo.filename
-        #if DEBUG
-        if filename == "taskData.json", let schema = ret.fileInfo.jsonSchema {
-            print("---\n\n\(schema)\n\(String(data: ret.data, encoding: .utf8)!)\n\n---")
-        }
-        #endif
-        let m = RSDFileManifest(filename: filename,
-                                timestamp: ret.fileInfo.timestamp,
-                                contentType: ret.fileInfo.contentType,
-                                identifier: ret.fileInfo.identifier,
-                                stepPath: ret.fileInfo.stepPath,
-                                jsonSchema: ret.fileInfo.jsonSchema,
-                                metadata: ret.fileInfo.metadata)
-        return (m, ret.data)
+    }
+    
+    override func assessmentResultFile() throws -> (Data, FileInfo)? {
+        nil // Do not include the assessment file
+    }
+}
+
+struct AppUnexpectedNullError : Error, CustomNSError {
+    static var errorDomain: String { "MobileToolboxApp.UnexpectedNullError" }
+    
+    let message: String
+    
+    var errorCode: Int {
+        -1
+    }
+    
+    var errorUserInfo: [String : Any] {
+        [NSLocalizedFailureReasonErrorKey: message]
     }
 }
 
