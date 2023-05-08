@@ -65,14 +65,14 @@ public struct ContentView: View {
     @ViewBuilder
     func assessmentView() -> some View {
         switch todayViewModel.selectedAssessmentViewType {
-        case .mtb:
+        case .mtb(let info):
             if #available(iOS 16.0, *) {
-                mtbView()
+                mtbView(info)
                     .statusBar(hidden: todayViewModel.isPresentingAssessment)
                     .defersSystemGestures(on: .vertical)
             } else {
                 PreferenceUIHostingControllerView {
-                    mtbView()
+                    mtbView(info)
                 }
                 .edgesIgnoringSafeArea(.all)
                 .statusBar(hidden: todayViewModel.isPresentingAssessment)
@@ -85,8 +85,8 @@ public struct ContentView: View {
     }
     
     @ViewBuilder
-    func mtbView() -> some View {
-        MTBAssessmentView(todayViewModel)
+    func mtbView(_ info: AssessmentScheduleInfo) -> some View {
+        MTBAssessmentView(info, handler: todayViewModel)
             .edgesIgnoringSafeArea(.all)
     }
     
@@ -100,7 +100,7 @@ public struct ContentView: View {
 }
 
 enum AssessmentViewType {
-    case mtb
+    case mtb(AssessmentScheduleInfo)
     case survey(AssessmentScheduleInfo)
     case empty
 }
@@ -112,10 +112,10 @@ extension TodayTimelineViewModel {
         
         let assessmentId = info.assessmentInfo.identifier
         if let _ = MTBIdentifier(rawValue: assessmentId) {
-            return .mtb
+            return .mtb(info)
         }
         else if taskVendor.taskTransformerMapping[assessmentId] != nil {
-            return .mtb
+            return .mtb(info)
         }
         else {
             return .survey(info)
