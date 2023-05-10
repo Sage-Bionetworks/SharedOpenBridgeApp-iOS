@@ -140,40 +140,17 @@ open class SageResearchArchiveManager : NSObject, RSDDataArchiveManager {
     /// study, and not include information that is ignored by *this* study, but may be of interest to other
     /// researchers using the same task protocol.
     open func dataArchiver(for taskResult: RSDTaskResult, scheduleIdentifier: String?, currentArchive: RSDDataArchive?) -> RSDDataArchive? {
-        
-        // Look for a schema info associated with this portion of the task result.
-        // If not found, then return the current archive.
-        let schema = self.schemaReference(for: taskResult)
-        guard (currentArchive == nil) || (schema != nil) else {
+        guard currentArchive == nil else {
             return currentArchive
         }
         
-        let isPlaceholder = (currentArchive == nil) && (schema == nil)
         let schedule = self.schedule(for: taskResult)
-        let archiveIdentifier = schema?.schemaIdentifier ?? taskResult.identifier
+        let archiveIdentifier = taskResult.identifier
 
-        // If there is a top-level archive then return the exisiting if and only if the identifiers are the
-        // same or the schema is nil.
-        if let inputArchive = currentArchive,
-            ((inputArchive.identifier == archiveIdentifier) || (schema == nil)) {
-            return inputArchive
-        }
-
-        if isPlaceholder {
-            // If this is a placeholder top-level archive without a schema table then consider it empty.
-            return SageResearchResultArchive(identifier: archiveIdentifier,
-                                             schemaIdentifier: schema?.schemaIdentifier,
-                                             schemaRevision: schema?.schemaVersion,
-                                             dataGroups: dataGroups(),
-                                             schedule: schedule,
-                                             isPlaceholder: true)
-        }
-        else {
-            // Otherwise, instantiate a new archive.
-            let archive = self.instantiateArchive(archiveIdentifier, for: schedule, with: schema)
-            archive?.taskResult = taskResult
-            return archive
-        }
+        // Otherwise, instantiate a new archive.
+        let archive = self.instantiateArchive(archiveIdentifier, for: schedule, with: nil)
+        archive?.taskResult = taskResult
+        return archive
     }
     
     /// Finalize the upload of all the created archives.
