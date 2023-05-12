@@ -266,6 +266,11 @@ struct RSDArchivableWrapper : RSDArchivable {
             return nil
         }
         let filename = (ret.fileInfo.filename == "taskData") ? "taskData.json" : ret.fileInfo.filename
+        #if DEBUG
+        if filename == "taskData.json", let schema = ret.fileInfo.jsonSchema {
+            print("---\n\n\(schema)\n\(String(data: ret.data, encoding: .utf8)!)\n\n---")
+        }
+        #endif
         let m = RSDFileManifest(filename: filename,
                                 timestamp: ret.fileInfo.timestamp,
                                 contentType: ret.fileInfo.contentType,
