@@ -150,6 +150,7 @@ open class SageResearchArchiveManager : NSObject, RSDDataArchiveManager {
         // Otherwise, instantiate a new archive.
         let archive = self.instantiateArchive(archiveIdentifier, for: schedule, with: nil)
         archive?.taskResult = taskResult
+        archive?.startedDate = taskResult.startDate
         return archive
     }
     
