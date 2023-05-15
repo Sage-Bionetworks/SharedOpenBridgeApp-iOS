@@ -221,17 +221,22 @@ final class MTBTaskDelegate : SageResearchTaskDelegate {
 struct MTBAssessmentView : UIViewControllerRepresentable {
     typealias UIViewControllerType = RSDTaskViewController
     
-    let delegate: MTBTaskDelegate
+    let assessmentManager: TodayTimelineViewModel
     
     init(_ assessmentManager: TodayTimelineViewModel) {
-        self.delegate = .init(assessmentManager)
+        self.assessmentManager = assessmentManager
+        
     }
 
     func makeUIViewController(context: Context) -> RSDTaskViewController {
-        delegate.taskVC
+        context.coordinator.taskVC
     }
     
     func updateUIViewController(_ uiViewController: RSDTaskViewController, context: Context) {
+    }
+    
+    func makeCoordinator() -> MTBTaskDelegate {
+        .init(assessmentManager)
     }
 }
 
