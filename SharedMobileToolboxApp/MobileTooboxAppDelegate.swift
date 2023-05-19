@@ -9,10 +9,13 @@ import BridgeClientUI
 import Research
 import ResearchUI
 import MobilePassiveData
-import LocationAuthorization
-import MotionSensor
-import AudioRecorder
 import MobileToolboxKit
+
+// Leaving these here commented out - if recorders are ever supported again, these will
+// need to be uncommented and the package and plist will need to include them. syoung 05/19/2023
+//import LocationAuthorization
+//import MotionSensor
+//import AudioRecorder
 
 open class MobileToolboxAppDelegate: RSDSwiftUIAppDelegate, ReauthPasswordHandler {
     open class var appId: String { "" }
@@ -36,12 +39,15 @@ open class MobileToolboxAppDelegate: RSDSwiftUIAppDelegate, ReauthPasswordHandle
         // Set up notifications handling
         UIApplication.shared.applicationIconBadgeNumber = 0
         UNUserNotificationCenter.current().delegate = bridgeManager.localNotificationManager
-        
-        PermissionAuthorizationHandler.registerAdaptorIfNeeded(MotionAuthorization.shared)
-        PermissionAuthorizationHandler.registerAdaptorIfNeeded(AudioRecorderAuthorization.shared)
-        PermissionAuthorizationHandler.registerAdaptorIfNeeded(LocationAuthorization())
         PermissionAuthorizationHandler.registerAdaptorIfNeeded(NotificationsAuthorization())
         
+        // Leaving these here commented out - if recorders are ever supported again, these will
+        // need to be uncommented and the package and plist will need to include them. syoung 05/19/2023
+        //PermissionAuthorizationHandler.registerAdaptorIfNeeded(MotionAuthorization.shared)
+        //PermissionAuthorizationHandler.registerAdaptorIfNeeded(AudioRecorderAuthorization.shared)
+        //PermissionAuthorizationHandler.registerAdaptorIfNeeded(LocationAuthorization())
+        
+        // Listen for sign out and clear caches if needed
         NotificationCenter.default.addObserver(forName: UploadAppManager.BridgeClientWillSignOut, object: nil, queue: .main) { _ in
             taskVendor.clearCachedData()
         }

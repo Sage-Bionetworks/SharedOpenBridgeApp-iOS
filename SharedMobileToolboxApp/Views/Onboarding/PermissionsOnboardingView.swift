@@ -127,16 +127,19 @@ let optionalRecorderIdentifiers = ["weather", "microphone", "motion"]
 extension SingleStudyAppManager {
     func onboardingSteps() -> [ContentNode] {
         let onboardingSteps = appConfig.decodeOnboardingSteps() ?? onboardingData
-        let recorders = study?.studyConfig?.backgroundRecorders ?? [:]
-        var filteredSteps = onboardingSteps.filter {
-            !optionalRecorderIdentifiers.contains($0.identifier) ||
-            (recorders[$0.identifier] ?? false)
-        }
-        if filteredSteps.count == 2 {
-            // If none of the background recorders are included then *only*
-            // show permission for notifications.
-            filteredSteps.removeLast()
-        }
-        return filteredSteps
+        
+        // syoung 05/19/2023 - leaving this here in case background recorders ever come back.
+        return [onboardingSteps.first!]
+//        let recorders = study?.studyConfig?.backgroundRecorders ?? [:]
+//        var filteredSteps = onboardingSteps.filter {
+//            !optionalRecorderIdentifiers.contains($0.identifier) ||
+//            (recorders[$0.identifier] ?? false)
+//        }
+//        if filteredSteps.count == 2 {
+//            // If none of the background recorders are included then *only*
+//            // show permission for notifications.
+//            filteredSteps.removeLast()
+//        }
+//        return filteredSteps
     }
 }
