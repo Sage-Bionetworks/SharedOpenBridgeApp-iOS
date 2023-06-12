@@ -47,6 +47,7 @@ struct PermissionsOnboardingView: View {
         self.navigator.pageCount = steps.count
         self.navigator.goForward = goForward
         self.navigator.goBack = goBack
+        self.navigator.progressHidden = (steps.count == 1)
         _finishNavigation()
     }
     
