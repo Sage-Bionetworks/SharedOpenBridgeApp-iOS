@@ -66,12 +66,10 @@ struct AccountView: View {
         VStack(spacing: 0) {
             accountInfoView()
             withdrawalView()
-            #if DEBUG
             Button(action: { bridgeManager.signOut() }) {
                 Text("Log out")
             }
             .buttonStyle(NavigationButtonStyle(.text))
-            #endif
         }
     }
     
@@ -134,7 +132,7 @@ struct AccountView: View {
     
     @ViewBuilder
     func withdrawalText() -> some View {
-        AttributedTextView(html: NSLocalizedString("TO_WITHDRAW_ACCOUNT", bundle: .module, comment: ""))
+        HtmlTextView(html: NSLocalizedString("TO_WITHDRAW_ACCOUNT", bundle: .module, comment: ""))
     }
     
     @ViewBuilder
