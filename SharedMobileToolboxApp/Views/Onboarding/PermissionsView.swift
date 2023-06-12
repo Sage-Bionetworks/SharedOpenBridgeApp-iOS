@@ -44,12 +44,6 @@ struct PermissionsView: View {
 
 struct PermissionsView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            PermissionsView(node: onboardingData[0])
-            PermissionsView(node: onboardingData[1])
-            PermissionsView(node: onboardingData[2])
-            PermissionsView(node: onboardingData[3])
-            PermissionsView(node: onboardingData[4])
-        }
+        PermissionsView(node: onboardingData[0])
     }
 }
