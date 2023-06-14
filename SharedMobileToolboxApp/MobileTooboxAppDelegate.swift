@@ -17,7 +17,7 @@ import MobileToolboxKit
 //import MotionSensor
 //import AudioRecorder
 
-open class MobileToolboxAppDelegate: RSDSwiftUIAppDelegate, ReauthPasswordHandler {
+open class MobileToolboxAppDelegate: RSDAppDelegate, ReauthPasswordHandler {
     open class var appId: String { "" }
     open class var pemPath: String { "" }
     
@@ -29,6 +29,15 @@ open class MobileToolboxAppDelegate: RSDSwiftUIAppDelegate, ReauthPasswordHandle
         self.bridgeManager = SingleStudyAppManager(appId: appId, pemPath: pemPath)
         super.init()
         self.bridgeManager.reauthPasswordHandler = self
+    }
+    
+    open func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+    }
+    
+    open override func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]?) -> Bool {
+        AppOrientationLockUtility.shouldAutorotate = true
+        return super.application(application, willFinishLaunchingWithOptions: launchOptions)
     }
     
     open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
