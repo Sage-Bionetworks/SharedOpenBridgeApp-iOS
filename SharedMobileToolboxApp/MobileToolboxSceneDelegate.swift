@@ -10,14 +10,18 @@ import ResearchUI
 // syoung 06/13/2023 This allows supported orientation to be honored.
 // Adapted from https://www.polpiella.dev/changing-orientation-for-a-single-screen-in-swiftui
 
-open class MTBSceneDelegate: UIResponder, UIWindowSceneDelegate {
+public protocol MobileToolboxContentView : View {
+    init()
+}
+
+open class MobileToolboxSceneDelegate<Content: MobileToolboxContentView>: UIResponder, UIWindowSceneDelegate {
     public var window: UIWindow?
 
     open func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = OrientationLockedController(rootView: ContentView())
+        window.rootViewController = OrientationLockedController(rootView: Content())
         window.makeKeyAndVisible()
         self.window = window
     }
