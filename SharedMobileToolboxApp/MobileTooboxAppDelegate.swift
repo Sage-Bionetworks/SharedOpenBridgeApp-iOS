@@ -9,7 +9,6 @@ import BridgeClientUI
 import Research
 import ResearchUI
 import MobilePassiveData
-import MobileToolboxKit
 
 // Leaving these here commented out - if recorders are ever supported again, these will
 // need to be uncommented and the package and plist will need to include them. syoung 05/19/2023
@@ -55,11 +54,6 @@ open class MobileToolboxAppDelegate: RSDAppDelegate, ReauthPasswordHandler {
         //PermissionAuthorizationHandler.registerAdaptorIfNeeded(MotionAuthorization.shared)
         //PermissionAuthorizationHandler.registerAdaptorIfNeeded(AudioRecorderAuthorization.shared)
         //PermissionAuthorizationHandler.registerAdaptorIfNeeded(LocationAuthorization())
-        
-        // Listen for sign out and clear caches if needed
-        NotificationCenter.default.addObserver(forName: UploadAppManager.BridgeClientWillSignOut, object: nil, queue: .main) { _ in
-            taskVendor.clearCachedData()
-        }
 
         return true
     }

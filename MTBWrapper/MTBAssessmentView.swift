@@ -15,7 +15,35 @@ import MobileToolboxKit
 import MSSMobileKit
 import AssessmentModelUI
 
-let taskVendor = MSSTaskVender(taskConfigLoader: MTBStaticTaskConfigLoader.default)
+public struct MTBAssessmentView : View {
+    let handler: ScheduledAssessmentHandler
+    let info: AssessmentScheduleInfo
+    
+    public init(_ assessmentInfo: AssessmentScheduleInfo, handler: ScheduledAssessmentHandler) {
+        self.info = assessmentInfo
+        self.handler = handler
+    }
+    
+    public var body: some View {
+        if #available(iOS 16.0, *) {
+            mtbView()
+                .statusBar(hidden: true)
+                .defersSystemGestures(on: .vertical)
+        } else {
+            PreferenceUIHostingControllerView {
+                mtbView()
+            }
+            .edgesIgnoringSafeArea(.all)
+            .statusBar(hidden: true)
+        }
+    }
+    
+    @ViewBuilder
+    func mtbView() -> some View {
+        MTBAssessmentViewRepresentable(info, handler: handler)
+            .edgesIgnoringSafeArea(.all)
+    }
+}
 
 public enum MTBIdentifier : String, CaseIterable {
     case numberMatch="number-match",
@@ -48,23 +76,23 @@ extension MTBIdentifier : AssessmentInfoExtension {
     public func title() -> Text {
         switch self {
         case .numberMatch:
-            return Text("Number-Symbol Match", bundle: .module)
+            return Text("Number-Symbol Match")
         case .mfs:
-            return Text("Sequences", bundle: .module)
+            return Text("Sequences")
         case .dccs:
-            return Text("Shape-Color Sorting", bundle: .module)
+            return Text("Shape-Color Sorting")
         case .fnamea:
-            return Text("Faces & Names A", bundle: .module)
+            return Text("Faces & Names A")
         case .fnameb:
-            return Text("Faces & Names B", bundle: .module)
+            return Text("Faces & Names B")
         case .flanker:
-            return Text("Arrow Matching", bundle: .module)
+            return Text("Arrow Matching")
         case .psm:
-            return Text("Arranging Pictures", bundle: .module)
+            return Text("Arranging Pictures")
         case .spelling:
-            return Text("Spelling", bundle: .module)
+            return Text("Spelling")
         case .vocabulary:
-            return Text("Word Meaning", bundle: .module)
+            return Text("Word Meaning")
         default:
             return Text(self.rawValue)
         }
@@ -170,7 +198,7 @@ fileprivate func assessmentToTaskIdentifierMap(_ identifier: String) -> String {
     MTBIdentifier(rawValue: identifier)?.taskIdentifier() ?? identifier
 }
 
-struct MTBAssessmentView : UIViewControllerRepresentable {
+struct MTBAssessmentViewRepresentable : UIViewControllerRepresentable {
     typealias UIViewControllerType = RSDTaskViewController
     
     let taskVC: RSDTaskViewController
