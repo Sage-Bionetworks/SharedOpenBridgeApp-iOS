@@ -4,8 +4,6 @@
 
 import Foundation
 import BridgeClient
-import JsonModel
-import MobilePassiveData
 import BridgeClientUI
 
 struct MobileToolboxStudyConfig : Codable, Hashable {
