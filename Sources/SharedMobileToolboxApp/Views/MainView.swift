@@ -61,7 +61,6 @@ struct MainView: View {
         if bridgeManager.isStudyComplete {
             EndOfStudyView()
                 .transition(.opacity)
-                .animation(.easeIn)
         }
         else {
             TodayView()
