@@ -14,11 +14,6 @@ let package = Package(
         .library(
             name: "SharedMobileToolboxApp",
             targets: ["SharedMobileToolboxApp"]),
-        
-        // Shared libraries only (used by internal app to allow previewing views)
-        .library(
-            name: "SharedLibraries",
-            targets: ["SharedLibraries"]),
     ],
     dependencies: [
 
@@ -33,8 +28,6 @@ let package = Package(
                  from: "0.19.1"),
         .package(url: "https://github.com/Sage-Bionetworks/JsonModel-Swift.git",
                  from: "2.0.0"),
-        .package(url: "https://github.com/Sage-Bionetworks/AssessmentModelKMM.git",
-                 from: "0.11.0"),
 
     ],
     targets: [
@@ -48,6 +41,7 @@ let package = Package(
         ),
         
         // Used to work-around SwiftUI previews not working for packages.
+        // Note: by setting the Swift tools version to 5.8, this work-around appears to be unnecessary. syoung 06/30/2023
         .target(name: "SharedLibraries",
                 dependencies: [
                     .product(name: "BridgeClient", package:"BridgeClientKMM"),
@@ -56,8 +50,6 @@ let package = Package(
                     .product(name: "ResearchUI", package: "SageResearch"),
                     .product(name: "SharedMobileUI", package: "SharedMobileUI-AppleOS"),
                     .product(name: "JsonModel", package: "JsonModel-Swift"),
-                    .product(name: "AssessmentModel", package: "AssessmentModelKMM"),
-                    .product(name: "AssessmentModelUI", package: "AssessmentModelKMM"),
                     
                     // Leaving these here commented out - if recorders are ever supported again, these will
                     // need to be uncommented and the package and plist will need to include them. syoung 05/19/2023
@@ -66,6 +58,10 @@ let package = Package(
                     //    .product(name: "MotionSensor", package: "MobilePassiveData"),
                     //    .product(name: "LocationAuthorization", package: "MobilePassiveData"),
                 ]
-               )
+               ),
+        
+        .testTarget(
+            name: "SharedMobileToolboxAppTests",
+            dependencies: ["SharedMobileToolboxApp"]),
     ]
 )
