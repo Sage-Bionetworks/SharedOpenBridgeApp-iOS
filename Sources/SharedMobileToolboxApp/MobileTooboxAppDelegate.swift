@@ -19,13 +19,16 @@ import MobilePassiveData
 open class MobileToolboxAppDelegate: RSDAppDelegate, ReauthPasswordHandler {
     open class var appId: String { "" }
     open class var pemPath: String { "" }
+    open class var backgroundProcessId: String { "" }
     
     public let bridgeManager: SingleStudyAppManager
     
     public override init() {
-        let appId = type(of: self).appId
-        let pemPath = type(of: self).pemPath
-        self.bridgeManager = SingleStudyAppManager(appId: appId, pemPath: pemPath)
+        let appId = Self.appId
+        let pemPath = Self.pemPath
+        let backgroundProcessId = Self.backgroundProcessId
+        self.bridgeManager = SingleStudyAppManager(appId: appId, pemPath: pemPath, backgroundProcessId: backgroundProcessId)
+
         super.init()
         self.bridgeManager.reauthPasswordHandler = self
     }
