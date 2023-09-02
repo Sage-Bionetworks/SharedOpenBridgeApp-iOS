@@ -118,7 +118,7 @@ struct PermissionsOnboardingView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             PermissionsOnboardingView(handleFinished: {})
-                .environmentObject(SingleStudyAppManager(appId: kPreviewStudyId))
+                .environmentObject(SingleStudyAppManager(mockType: .preview))
         }
     }
 }

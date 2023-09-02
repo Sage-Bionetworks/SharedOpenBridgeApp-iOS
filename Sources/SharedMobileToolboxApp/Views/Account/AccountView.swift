@@ -190,7 +190,7 @@ struct AccountView: View {
 }
 
 struct AccountViewPreview : View {
-    @StateObject var bridgeManager = SingleStudyAppManager(appId: kPreviewStudyId)
+    @StateObject var bridgeManager = SingleStudyAppManager(mockType: .preview)
     @StateObject var mainViewModel = MainView.ViewModel()
     @State var selectedTab: AccountView.Tab = .profile
     

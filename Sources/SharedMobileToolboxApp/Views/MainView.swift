@@ -71,7 +71,7 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
-            .environmentObject(SingleStudyAppManager(appId: kPreviewStudyId))
+            .environmentObject(SingleStudyAppManager(mockType: .preview))
             .environmentObject(TodayTimelineViewModel())
     }
 }

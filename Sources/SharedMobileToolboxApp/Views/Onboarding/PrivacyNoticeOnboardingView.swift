@@ -58,7 +58,7 @@ struct PrivacyNoticeOnboardingPreviewer : View {
     @State var selectedTab: PrivacyNotice.Category = .weWill
     var body: some View {
         PrivacyNoticeOnboardingView(selectedTab: $selectedTab)
-            .environmentObject(SingleStudyAppManager(appId: kPreviewStudyId))
+            .environmentObject(SingleStudyAppManager(mockType: .preview))
     }
 }
 

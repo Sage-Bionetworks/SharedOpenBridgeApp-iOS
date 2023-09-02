@@ -62,6 +62,6 @@ struct OnboardingNavigationView <Content: View> : View {
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
         OnboardingView()
-            .environmentObject(SingleStudyAppManager(appId: kPreviewStudyId))
+            .environmentObject(SingleStudyAppManager(mockType: .preview))
     }
 }

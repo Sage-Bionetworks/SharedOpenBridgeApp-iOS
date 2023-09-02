@@ -101,6 +101,6 @@ struct ReauthRecoveryView: View {
 struct ReauthRecoveryView_Previews: PreviewProvider {
     static var previews: some View {
         ReauthRecoveryView(studyId: kPreviewStudyId, participantId: "012345")
-            .environmentObject(SingleStudyAppManager(appId: kPreviewStudyId))
+            .environmentObject(SingleStudyAppManager(mockType: .preview))
     }
 }
