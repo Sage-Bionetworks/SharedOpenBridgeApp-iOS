@@ -7,6 +7,7 @@ import BridgeClientExtension
 import BridgeClientUI
 import SharedMobileUI
 import MobilePassiveData
+import AssessmentModel
 
 struct AccountView: View {
     @EnvironmentObject var bridgeManager: SingleStudyAppManager
@@ -46,7 +47,7 @@ struct AccountView: View {
                     case .profile:
                         profileView()
                     case .notifications:
-                        SettingsView(node: viewModel.notifications)
+                        SettingsView(node: notificationsPermissionNode)
                     case .settings:
                         settingsView()
                     }
@@ -163,19 +164,17 @@ struct AccountView: View {
         
         // MARK: Settings
         
-        @Published var notifications: PermissionStep = PermissionStep(permissionType: .notifications)
-        @Published var settings: [PermissionStep] = [
-            PermissionStep(permissionType: .locationWhenInUse),
-            PermissionStep(permissionType: .microphone),
-            PermissionStep(permissionType: .motion),
-        ]
+        @Published var notifications: ContentNode = notificationsPermissionNode
+        @Published var settings: [ContentNode] = []
         
         // MARK: Set up
         
         func onAppear(_ bridgeManager: SingleStudyAppManager) {
-            self.settings = bridgeManager.onboardingSteps().compactMap {
-                guard let step = $0 as? PermissionStep else { return nil }
-                if step.permissionType == .notifications {
+            self.settings = bridgeManager.onboardingSteps().compactMap { step in
+                guard let permissionType = step.standardPermissionType else {
+                    return nil
+                }
+                if permissionType == .notifications {
                     self.notifications = step
                     return nil
                 } else {

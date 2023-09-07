@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Sage-Bionetworks/AssessmentModelKMM.git",
       "state" : {
-        "revision" : "bcabaeda9fd4ffd1d4013e7631070d98caa397f6",
-        "version" : "0.12.0"
+        "revision" : "70ef35ada8c02ce806aa6b1c124106618c9ad98d",
+        "version" : "1.0.1"
       }
     },
     {
@@ -16,6 +16,15 @@
       "state" : {
         "revision" : "9fce5d2c7e1134c9c486b3eedfb2ba4dc337263a",
         "version" : "0.3.2"
+      }
+    },
+    {
+      "identity" : "bridgeclientkmm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Sage-Bionetworks/BridgeClientKMM.git",
+      "state" : {
+        "revision" : "a2606e6432c1a717101f46a55ecac937a490f7c3",
+        "version" : "0.18.0"
       }
     },
     {
@@ -43,24 +52,6 @@
       "state" : {
         "revision" : "a13ff3b41ac48d984bfbad1628c91c9752e6fd48",
         "version" : "1.5.4"
-      }
-    },
-    {
-      "identity" : "sageresearch",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Sage-Bionetworks/SageResearch.git",
-      "state" : {
-        "revision" : "f9e9ab89c0232e6ac95f3ae4838de5dac244aac4",
-        "version" : "4.10.0"
-      }
-    },
-    {
-      "identity" : "sharedmobileui-appleos",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Sage-Bionetworks/SharedMobileUI-AppleOS.git",
-      "state" : {
-        "revision" : "16b8b57e1b2d2e2746dd8f55ca620f1d25dc8855",
-        "version" : "0.19.1"
       }
     },
     {

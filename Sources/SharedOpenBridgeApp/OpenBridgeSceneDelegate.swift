@@ -4,7 +4,7 @@
 import UIKit
 import SwiftUI
 import BridgeClientUI
-import ResearchUI
+import SharedMobileUI
 
 // TODO: syoung 06/14/2023 Revisit this each year until we no longer need to support a work-around.
 // syoung 06/13/2023 This allows supported orientation to be honored.

@@ -5,7 +5,7 @@
 import SwiftUI
 import BridgeClientExtension
 import BridgeClientUI
-import Research
+import AssessmentModel
 import SharedMobileUI
 import MobilePassiveData
 
@@ -52,8 +52,8 @@ struct PermissionsOnboardingView: View {
     }
     
     func goForward() {
-        if let step = self.currentNode as? PermissionStep, !isXcodePreview {
-            requestPermission(for: step.permissionType)
+        if !isXcodePreview, let permissionType = self.currentNode?.standardPermissionType {
+            requestPermission(for: permissionType)
         }
         else {
             self._moveForward()
@@ -100,6 +100,21 @@ struct PermissionsOnboardingView: View {
 }
 
 extension ContentNode {
+    var standardPermissionType: StandardPermissionType? {
+        switch self.identifier {
+        case "microphone":
+            return .microphone
+        case "weather":
+            return .locationWhenInUse
+        case "notifications":
+            return .notifications
+        default:
+            return nil
+        }
+    }
+}
+
+extension ContentNode {
     var titleKey: LocalizedStringKey {
         LocalizedStringKey(title ?? "")
     }
@@ -107,7 +122,7 @@ extension ContentNode {
         LocalizedStringKey(detail ?? "")
     }
     var imageName: String? {
-        (self as? RSDDesignableUIStep)?.imageTheme?.imageName
+        self.imageInfo?.imageName
     }
     var bundle: Bundle? {
         .module
@@ -127,10 +142,10 @@ let optionalRecorderIdentifiers = ["weather", "microphone", "motion"]
 
 extension SingleStudyAppManager {
     func onboardingSteps() -> [ContentNode] {
-        let onboardingSteps = appConfig.decodeOnboardingSteps() ?? onboardingData
+        let onboardingSteps = appConfig.decodeOnboardingSteps()
         
         // syoung 05/19/2023 - leaving this here in case background recorders ever come back.
-        return [onboardingSteps.first!]
+        return onboardingSteps.first.map { [$0] } ?? [notificationsPermissionNode]
 //        let recorders = study?.studyConfig?.backgroundRecorders ?? [:]
 //        var filteredSteps = onboardingSteps.filter {
 //            !optionalRecorderIdentifiers.contains($0.identifier) ||

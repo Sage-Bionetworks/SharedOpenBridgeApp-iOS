@@ -6,8 +6,7 @@ import SwiftUI
 import BridgeClientExtension
 import BridgeClient
 import BridgeClientUI
-import Research
-import ResearchUI
+import SharedMobileUI
 import MobilePassiveData
 
 // Leaving these here commented out - if recorders are ever supported again, these will
@@ -16,7 +15,7 @@ import MobilePassiveData
 //import MotionSensor
 //import AudioRecorder
 
-open class OpenBridgeAppDelegate: RSDAppDelegate, ReauthPasswordHandler {
+open class OpenBridgeAppDelegate: UIResponder, UIApplicationDelegate, ReauthPasswordHandler {
     open class var appId: String { "" }
     open class var pemPath: String { "" }
     open class var backgroundProcessId: String { "" }
@@ -37,9 +36,9 @@ open class OpenBridgeAppDelegate: RSDAppDelegate, ReauthPasswordHandler {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
     
-    open override func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]?) -> Bool {
+    open func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]?) -> Bool {
         AppOrientationLockUtility.shouldAutorotate = true
-        return super.application(application, willFinishLaunchingWithOptions: launchOptions)
+        return true
     }
     
     open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
