@@ -14,34 +14,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "SharedMobileToolboxApp_SharedMobileToolboxApp"
-               BuildableName = "SharedMobileToolboxApp_SharedMobileToolboxApp"
-               BlueprintName = "SharedMobileToolboxApp_SharedMobileToolboxApp"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "SharedMobileToolboxApp"
-               BuildableName = "SharedMobileToolboxApp"
-               BlueprintName = "SharedMobileToolboxApp"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "SharedLibraries"
                BuildableName = "SharedLibraries"
                BlueprintName = "SharedLibraries"
@@ -51,14 +23,14 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "SharedMobileToolboxAppTests"
-               BuildableName = "SharedMobileToolboxAppTests"
-               BlueprintName = "SharedMobileToolboxAppTests"
+               BlueprintIdentifier = "SharedOpenBridgeApp"
+               BuildableName = "SharedOpenBridgeApp"
+               BlueprintName = "SharedOpenBridgeApp"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -75,9 +47,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "SharedMobileToolboxAppTests"
-               BuildableName = "SharedMobileToolboxAppTests"
-               BlueprintName = "SharedMobileToolboxAppTests"
+               BlueprintIdentifier = "SharedOpenBridgeAppTests"
+               BuildableName = "SharedOpenBridgeAppTests"
+               BlueprintName = "SharedOpenBridgeAppTests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
@@ -100,15 +72,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "SharedMobileToolboxApp_SharedMobileToolboxApp"
-            BuildableName = "SharedMobileToolboxApp_SharedMobileToolboxApp"
-            BlueprintName = "SharedMobileToolboxApp_SharedMobileToolboxApp"
-            ReferencedContainer = "container:">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

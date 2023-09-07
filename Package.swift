@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "SharedMobileToolboxApp",
+    name: "SharedOpenBridgeApp",
     defaultLocalization: "en",
     platforms: [
         .iOS(.v15),
@@ -12,14 +12,15 @@ let package = Package(
     products: [
         // Core app code that can be used to set up a bespoke app
         .library(
-            name: "SharedMobileToolboxApp",
-            targets: ["SharedMobileToolboxApp"]),
+            name: "SharedOpenBridgeApp",
+            targets: ["SharedOpenBridgeApp"]),
     ],
     dependencies: [
 
         // Core dependencies that are required to connect to Bridge/Synapse
-        .package(url: "https://github.com/Sage-Bionetworks/BridgeClientKMM.git",
-                 from: "0.17.6"),
+//        .package(url: "https://github.com/Sage-Bionetworks/BridgeClientKMM.git",
+//                 from: "0.17.6"),
+        .package(path: "../BridgeClientKMM/"),
         .package(url: "https://github.com/Sage-Bionetworks/MobilePassiveData-SDK.git",
                  from: "1.5.4"),
         .package(url: "https://github.com/Sage-Bionetworks/SageResearch.git",
@@ -33,7 +34,7 @@ let package = Package(
     targets: [
         // Shared app code that can be imported by assessment QA apps.
         .target(
-            name: "SharedMobileToolboxApp",
+            name: "SharedOpenBridgeApp",
             dependencies: [
                 "SharedLibraries",
             ],
@@ -61,7 +62,7 @@ let package = Package(
                ),
         
         .testTarget(
-            name: "SharedMobileToolboxAppTests",
-            dependencies: ["SharedMobileToolboxApp"]),
+            name: "SharedOpenBridgeAppTests",
+            dependencies: ["SharedOpenBridgeApp"]),
     ]
 )

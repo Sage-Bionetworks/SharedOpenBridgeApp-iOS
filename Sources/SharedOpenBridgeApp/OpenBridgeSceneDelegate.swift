@@ -10,11 +10,11 @@ import ResearchUI
 // syoung 06/13/2023 This allows supported orientation to be honored.
 // Adapted from https://www.polpiella.dev/changing-orientation-for-a-single-screen-in-swiftui
 
-public protocol MobileToolboxContentView : View {
+public protocol OpenBridgeContentView : View {
     init()
 }
 
-open class MobileToolboxSceneDelegate<Content: MobileToolboxContentView>: UIResponder, UIWindowSceneDelegate {
+open class OpenBridgeSceneDelegate<Content: OpenBridgeContentView>: UIResponder, UIWindowSceneDelegate {
     public var window: UIWindow?
 
     open func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -34,7 +34,7 @@ class OrientationLockedController<Content: View>: UIHostingController<Orientatio
     }
     
     init(rootView: Content) {
-        super.init(rootView: .init(contentView: rootView, bridgeManager: (UIApplication.shared.delegate! as! MobileToolboxAppDelegate).bridgeManager))
+        super.init(rootView: .init(contentView: rootView, bridgeManager: (UIApplication.shared.delegate! as! OpenBridgeAppDelegate).bridgeManager))
     }
     
     required dynamic init?(coder aDecoder: NSCoder) {

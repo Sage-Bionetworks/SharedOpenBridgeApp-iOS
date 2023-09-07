@@ -1,7 +1,7 @@
-# SharedMobileToolboxApp-iOS
+# SharedOpenBridgeApp-iOS
 
-Public repo for shared code used to set up a flavor of the Mobile Toolbox App.
+Public repo for shared code used to set up a flavor of the Open Bridge App.
 
 ## License
 
-SharedMobileToolboxApp-iOS is available under the [Commons Clause and BSD 3-clause](LICENSE) licenses.
+SharedOpenBridgeApp-iOS is available under the [Commons Clause and BSD 3-clause](LICENSE) licenses.

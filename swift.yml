@@ -17,6 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build for iOS
-      run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild build-for-testing -scheme SharedMobileToolboxApp-Package -destination "platform=iOS Simulator,name=iPhone 14" | xcpretty
+      run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild build-for-testing -scheme SharedOpenBridgeApp-Package -destination "platform=iOS Simulator,name=iPhone 14" | xcpretty
     - name: Run iOS tests
-      run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild test-without-building -scheme SharedMobileToolboxApp-Package -destination "platform=iOS Simulator,name=iPhone 14" | xcpretty
+      run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild test-without-building -scheme SharedOpenBridgeApp-Package -destination "platform=iOS Simulator,name=iPhone 14" | xcpretty

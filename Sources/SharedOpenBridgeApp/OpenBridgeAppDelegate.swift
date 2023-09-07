@@ -1,5 +1,5 @@
 //
-//  MobileToolboxAppDelegate.swift
+//  OpenBridgeAppDelegate.swift
 //
 
 import SwiftUI
@@ -16,7 +16,7 @@ import MobilePassiveData
 //import MotionSensor
 //import AudioRecorder
 
-open class MobileToolboxAppDelegate: RSDAppDelegate, ReauthPasswordHandler {
+open class OpenBridgeAppDelegate: RSDAppDelegate, ReauthPasswordHandler {
     open class var appId: String { "" }
     open class var pemPath: String { "" }
     open class var backgroundProcessId: String { "" }

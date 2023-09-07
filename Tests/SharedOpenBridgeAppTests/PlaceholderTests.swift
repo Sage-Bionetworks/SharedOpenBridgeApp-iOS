@@ -2,7 +2,7 @@
 // swift-tools-version:5.0
 
 import XCTest
-@testable import SharedMobileToolboxApp
+@testable import SharedOpenBridgeApp
 
 final class PlaceholderTests: XCTestCase {
 

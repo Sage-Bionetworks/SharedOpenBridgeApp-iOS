@@ -1,12 +1,12 @@
 //
-//  MobileToolboxStudyConfig.swift
+//  OpenBridgeStudyConfig.swift
 //
 
 import Foundation
 import BridgeClient
 import BridgeClientUI
 
-struct MobileToolboxStudyConfig : Codable, Hashable {
+struct OpenBridgeStudyConfig : Codable, Hashable {
     let welcomeScreenData: WelcomeScreenData?
     let backgroundRecorders: [String : Bool]?
 }
@@ -28,13 +28,13 @@ struct WelcomeScreenData : Codable, Hashable {
 }
 
 extension StudyObserver {
-    var studyConfig: MobileToolboxStudyConfig? {
+    var studyConfig: OpenBridgeStudyConfig? {
         guard let data = clientData else { return nil }
         do {
             let decoder = JSONDecoder()
-            return try decoder.decode(MobileToolboxStudyConfig.self, from: data)
+            return try decoder.decode(OpenBridgeStudyConfig.self, from: data)
         } catch let err {
-            print("WARNING! Failed to decode `MobileToolboxStudyConfig`. \(err) ")
+            print("WARNING! Failed to decode `OpenBridgeStudyConfig`. \(err) ")
             return nil
         }
     }
