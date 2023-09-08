@@ -5,9 +5,10 @@
 import SwiftUI
 import SharedMobileUI
 import MobilePassiveData
+import AssessmentModel
 
 struct SettingsView : View {
-    let node: PermissionStep
+    let node: ContentNode
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             PermissionsView(node: node)
@@ -22,7 +23,7 @@ struct SettingsView : View {
     }
     
     var backgroundColor: Color {
-        switch node.permissionType {
+        switch node.standardPermissionType {
         case .notifications:
             return .btnLavender
         case .motion:
@@ -49,9 +50,6 @@ struct SettingsView : View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            SettingsView(node: PermissionStep(permissionType: .notifications))
-            SettingsView(node: PermissionStep(permissionType: .locationWhenInUse))
-        }
+        SettingsView(node: notificationsPermissionNode)
     }
 }

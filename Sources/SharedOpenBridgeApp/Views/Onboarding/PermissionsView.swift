@@ -4,7 +4,7 @@
 //
 
 import SwiftUI
-import Research
+import AssessmentModel
 import SharedMobileUI
 
 struct PermissionsView: View {
@@ -44,6 +44,12 @@ struct PermissionsView: View {
 
 struct PermissionsView_Previews: PreviewProvider {
     static var previews: some View {
-        PermissionsView(node: onboardingData[0])
+        PermissionsView(node: notificationsPermissionNode)
     }
 }
+
+let notificationsPermissionNode =
+    InstructionStepObject(identifier: "notifications",
+                          title: "Notifications",
+                          detail: "We may send you periodic reminders or notifications on your phone to complete your activities.\n\nYou can choose to make it an alert, a sound, or an icon badge.\n\nYou can say no and still be in the study.",
+                          imageInfo: FetchableImage(imageName: "permissions_notifications"))
