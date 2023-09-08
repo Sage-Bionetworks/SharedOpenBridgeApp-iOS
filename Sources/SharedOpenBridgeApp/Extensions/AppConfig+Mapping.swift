@@ -51,7 +51,7 @@ fileprivate let permissionsJson = """
         "imageName": "permissions_intro"
       },
       "title": "Environmental Factors",
-      "detail": "The environment around you, such as weather or air pollution in your area or how close you are to a grocery store or park, can affect your health and well-being.\n\nOn the next screens we will ask for your permission to collect a variety of data. This is optional, you can say no and still be in the study."
+      "detail": "The environment around you, such as weather or air pollution in your area or how close you are to a grocery store or park, can affect your health and well-being.\n\nOn the next screens we will ask for your permission to collect a variety of data. This is optional. You can say no and still be in the study."
     },
     {
       "identifier": "weather",
