@@ -3,16 +3,16 @@
     {
       "identity" : "assessmentmodelkmm",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Sage-Bionetworks/AssessmentModelKMM.git",
+      "location" : "https://github.com/BridgeDigitalHealth/AssessmentModelKMM.git",
       "state" : {
-        "revision" : "70ef35ada8c02ce806aa6b1c124106618c9ad98d",
-        "version" : "1.0.1"
+        "revision" : "ae36e6e3c097f58d1b71c4d383cd53a3c9110edf",
+        "version" : "1.0.2"
       }
     },
     {
       "identity" : "bridgearchiver-swift",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Sage-Bionetworks/BridgeArchiver-Swift.git",
+      "location" : "https://github.com/BridgeDigitalHealth/BridgeArchiver-Swift.git",
       "state" : {
         "revision" : "9fce5d2c7e1134c9c486b3eedfb2ba4dc337263a",
         "version" : "0.3.2"
@@ -21,10 +21,10 @@
     {
       "identity" : "bridgeclientkmm",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Sage-Bionetworks/BridgeClientKMM.git",
+      "location" : "https://github.com/BridgeDigitalHealth/BridgeClientKMM.git",
       "state" : {
-        "revision" : "a2606e6432c1a717101f46a55ecac937a490f7c3",
-        "version" : "0.18.0"
+        "revision" : "b1142df9ecb53c935e05e87300d9beb935a787bc",
+        "version" : "0.19.0"
       }
     },
     {
@@ -39,7 +39,7 @@
     {
       "identity" : "jsonmodel-swift",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Sage-Bionetworks/JsonModel-Swift.git",
+      "location" : "https://github.com/BridgeDigitalHealth/JsonModel-Swift.git",
       "state" : {
         "revision" : "3274a1192148b9652885d4a6baa50462ae9842b8",
         "version" : "2.2.2"
@@ -48,10 +48,10 @@
     {
       "identity" : "mobilepassivedata-sdk",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Sage-Bionetworks/MobilePassiveData-SDK.git",
+      "location" : "https://github.com/BridgeDigitalHealth/MobilePassiveData-SDK.git",
       "state" : {
-        "revision" : "a13ff3b41ac48d984bfbad1628c91c9752e6fd48",
-        "version" : "1.5.4"
+        "revision" : "74a1f99da8f8c017d0a5adbb3584be81bb1cd9a8",
+        "version" : "1.6.2"
       }
     },
     {

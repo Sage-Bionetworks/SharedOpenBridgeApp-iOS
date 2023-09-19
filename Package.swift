@@ -18,14 +18,14 @@ let package = Package(
     dependencies: [
 
         // Core dependencies that are required to connect to Bridge/Synapse
-        .package(url: "https://github.com/Sage-Bionetworks/BridgeClientKMM.git",
-                 from: "0.18.0"),
-        .package(url: "https://github.com/Sage-Bionetworks/AssessmentModelKMM.git",
-                 from: "1.0.0"),
-        .package(url: "https://github.com/Sage-Bionetworks/MobilePassiveData-SDK.git",
-                 from: "1.5.4"),
-        .package(url: "https://github.com/Sage-Bionetworks/JsonModel-Swift.git",
-                 from: "2.0.0"),
+        .package(url: "https://github.com/BridgeDigitalHealth/BridgeClientKMM.git",
+                 from: "0.19.0"),
+        .package(url: "https://github.com/BridgeDigitalHealth/AssessmentModelKMM.git",
+                 from: "1.0.2"),
+        .package(url: "https://github.com/BridgeDigitalHealth/MobilePassiveData-SDK.git",
+                 from: "1.6.2"),
+        .package(url: "https://github.com/BridgeDigitalHealth/JsonModel-Swift.git",
+                 from: "2.2.2"),
 
     ],
     targets: [
