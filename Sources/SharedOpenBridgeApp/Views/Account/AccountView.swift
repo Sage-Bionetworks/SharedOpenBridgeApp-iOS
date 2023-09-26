@@ -67,12 +67,10 @@ struct AccountView: View {
         VStack(spacing: 0) {
             accountInfoView()
             withdrawalView()
-            #if DEBUG
             Button(action: { bridgeManager.signOut() }) {
                 Text("Log out")
             }
             .buttonStyle(NavigationButtonStyle(.text))
-            #endif
         }
     }
     
