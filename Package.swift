@@ -19,13 +19,13 @@ let package = Package(
 
         // Core dependencies that are required to connect to Bridge/Synapse
         .package(url: "https://github.com/BridgeDigitalHealth/BridgeClientKMM.git",
-                 from: "0.19.0"),
+                 from: "0.20.0"),
         .package(url: "https://github.com/BridgeDigitalHealth/AssessmentModelKMM.git",
-                 from: "1.0.2"),
+                 from: "1.1.2"),
         .package(url: "https://github.com/BridgeDigitalHealth/MobilePassiveData-SDK.git",
                  from: "1.6.2"),
         .package(url: "https://github.com/BridgeDigitalHealth/JsonModel-Swift.git",
-                 from: "2.2.2"),
+                 from: "2.3.1"),
 
     ],
     targets: [
