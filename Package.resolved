@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/BridgeDigitalHealth/AssessmentModelKMM.git",
       "state" : {
-        "revision" : "ae36e6e3c097f58d1b71c4d383cd53a3c9110edf",
-        "version" : "1.0.2"
+        "revision" : "62a0826908ca3dae200e32d4038d9409f4e9f9a5",
+        "version" : "1.1.2"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/BridgeDigitalHealth/BridgeClientKMM.git",
       "state" : {
-        "revision" : "b1142df9ecb53c935e05e87300d9beb935a787bc",
-        "version" : "0.19.0"
+        "revision" : "d5f85851ba53ee78e3231278837b752502adb492",
+        "version" : "0.20.0"
       }
     },
     {
@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/BridgeDigitalHealth/JsonModel-Swift.git",
       "state" : {
-        "revision" : "3274a1192148b9652885d4a6baa50462ae9842b8",
-        "version" : "2.2.2"
+        "revision" : "5d9acc0f5c1779cca3a31ca1913d684406e74f1f",
+        "version" : "2.3.1"
       }
     },
     {
